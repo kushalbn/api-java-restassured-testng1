@@ -1,5 +1,7 @@
 package com.api.base;
 
+import filters.LoggingFilter;
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -14,6 +16,12 @@ public class BaseService {
     private static final String BASE_URL = "http://64.227.160.186:8080";
     //
     private RequestSpecification requestSpecification;
+
+    //we need to run this filters only once and
+    // it has to be run by any thread. So we put this in static block
+    static {
+        RestAssured.filters(new LoggingFilter());
+    }
 
     public BaseService(){
         requestSpecification = given().baseUri(BASE_URL);
