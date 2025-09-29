@@ -31,12 +31,16 @@ public class BaseService {
         requestSpecification.header("Authorization","Bearer "+token);
     }
 
-    public Response getRequest(String endPoint){
+    protected Response getRequest(String endPoint){
         return requestSpecification.get(endPoint);
     }
 
-    public Response postRequest(Object payload, String endpoint){
+    protected Response postRequest(Object payload, String endpoint){
         return requestSpecification.contentType(ContentType.JSON).body(payload).post(endpoint);
+    }
+
+    protected Response putRequest(Object payload, String endpoint) {
+        return requestSpecification.contentType(ContentType.JSON).body(payload).put(endpoint);
     }
 
 }
